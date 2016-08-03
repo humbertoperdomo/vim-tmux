@@ -162,8 +162,8 @@ let g:airline_theme = 'powerlineish'
 "let g:airline#extensions#tabline#left_alt_sep = '|'
 
 " edkolev tmuxline
-let g:airline#extensions#tmuxline#enabled = 1
-let g:tmuxline_powerline_separators = 0
+let g:airline#extensions#tmuxline#enabled = 0
+let g:tmuxline_powerline_separators = 1
 let airline#extensions#tmuxline#color_template = 'normal'
 
 " vim-tmux-navigator
