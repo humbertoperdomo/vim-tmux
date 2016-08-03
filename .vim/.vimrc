@@ -1,8 +1,5 @@
 " Configuration
 
-" Pathogen first
-
-"execute pathogen#infect()
 
 " Basic Settings
 set ttimeoutlen=10
@@ -33,62 +30,115 @@ Plugin 'edkolev/tmuxline.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-syntax on
-set shell=/bin/bash
 set guifont=Menlo:h14
-set nocompatible
-set modelines=0
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set encoding=utf-8
-set scrolloff=3
-set autoindent
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set visualbell
-set ttyfast
-set ruler
+
+" Basics
+set nocompatible    " not compatible with vi
+set autoread    " detect when a file is changed
+
+" make backspace behave in a same manner
 set backspace=indent,eol,start
-set laststatus=2
-set number
-set relativenumber
-set noundofile
-nnoremap / /\v
-vnoremap / /\v
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
+
+inoremap jk <ESC>
+" set a map leader for more key combos
+let mapleader = ','
+let g:mapleader = ','
+
+set history=10000   " change history to 10000
+
+" tab control
+set expandtab " insert spaces rather than tabs for <Tab>
+set tabstop=4   " the visible with of tabs
+set shiftwidth=4    " number of spaces to use for indent and unindent
+set softtabstop=4   " edit as if the tabs are 4 characters wide
+
+set clipboard=unnamed
+
+" fasterredrawing
+set ttyfast
+
+" code folding settings
+set foldmethod=syntax   " fold base on indent
+set foldnestmax=10  " deepest fold is 10 levels
+set nofoldenable    " don't fold by default
+set foldlevel=1
+
+"""""""""""""""""""""""""""""""""""""""""
+" => User interface
+"""""""""""""""""""""""""""""""""""""""""
+set wildmenu    " enhanced command line completion
+set hidden  " current buffer can be put in background
+set showcmd " show incomple commands
+set showmode    " show which mode disabled for PowerLine
+set wildmode=list:longest   " complete files like a shell
+set scrolloff=3 " lines of text around cursor
+set shell=$SHELL
+set cmdheight=1 " command bar height
+
+set title
+
+" Searching
+set ignorecase  " case-insensitive searching
+set smartcase   " case-sensitive if expression contains a capital letter
 set hlsearch
-nnoremap <leader><space> :noh<cr>
-nnoremap <tab> %
-vnoremap <tab> %
-set wrap
-set linebreak
+set incsearch   " set incremental search, like modern browsers
+set nolazyredraw    " don't redraw while executing macros
+
+set magic   " Set magic on, for regex
+
+set showmatch   " show matching braces
+set mat=2   " how many tenths of a second to blink
+
+" error bells
+set noerrorbells
+set visualbell
+
+" switch syntax highlighting on
+syntax on
+
+set encoding=utf-8
+
+set relativenumber  " show relative line numbers
+set number  " show the current line number
+
+set wrap    " turn on line wrapping
+set wrapmargin=8    " wrap lines when coming within n characters from side
+set linebreak   " set soft wrapping
+set showbreak=...   " show ellipsis at breaking
+
+set autoindent  " automatically set indent of new line
+set smartindent
+"set ruler
+"set colorcolumn=80
+
+set modelines=0
+set noundofile
+set gdefault
 set nolist
 set formatoptions=qrn1
 "set spell spelllang=en_us
-set colorcolumn=80
+
+"""""""""""""""""""""""""""""""""
+" => Files, backups, and undo
+"""""""""""""""""""""""""""""""""
+"set nobackup
+"set nowritebackup
+"set noswapfile
+set backupdir=~/.vim/tmp,/tmp
+set directory=~/.vim/tmp,/tmp
+
+"""""""""""""""""""""""""""""""""""""""""""
+" => StatusLine
+"""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2    " show the status line all the time
 
 " Aesthetics
-
 color Crystallite
 
 " Mappings and shortcuts
 
-" Basics
-
-inoremap jk <ESC>
-let mapleader = ","
 
 " Arrows are unvimlike 
-
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <left> <nop>
@@ -99,12 +149,17 @@ inoremap <left> <nop>
 inoremap <right> <nop>
 
 " Miscellaneous 
-
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 au FocusLost * :wa
 vnoremap . :norm.<CR>
+
+nnoremap / /\v
+vnoremap / /\v
+nnoremap <leader><space> :noh<cr>
+nnoremap <tab> %
+vnoremap <tab> %
 
 " Leader shortcuts
 
