@@ -1,5 +1,7 @@
 " Configuration
 
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
 
 " Basic Settings
 set ttimeoutlen=10
@@ -30,7 +32,7 @@ Plugin 'edkolev/tmuxline.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-set guifont=Menlo:h14
+"set guifont=Menlo:h14
 
 " Basics
 set nocompatible    " not compatible with vi
@@ -102,13 +104,13 @@ set relativenumber  " show relative line numbers
 set number  " show the current line number
 
 set wrap    " turn on line wrapping
-set wrapmargin=8    " wrap lines when coming within n characters from side
+set wrapmargin=4    " wrap lines when coming within n characters from side
 set linebreak   " set soft wrapping
 set showbreak=...   " show ellipsis at breaking
 
 set autoindent  " automatically set indent of new line
 set smartindent
-"set ruler
+set ruler
 "set colorcolumn=80
 
 set modelines=0
@@ -215,11 +217,11 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = 'powerlineish'
 "let g:airline#extensions#tabline#left_sep = ' '
 "let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tmuxline#enabled = 0
+let airline#extensions#tmuxline#color_template = 'normal'
 
 " edkolev tmuxline
-let g:airline#extensions#tmuxline#enabled = 0
 let g:tmuxline_powerline_separators = 1
-let airline#extensions#tmuxline#color_template = 'normal'
 
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
