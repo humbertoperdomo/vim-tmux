@@ -35,6 +35,14 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'vim-scripts/bufkill.vim'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'nvie/vim-flake8'
+
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomsik68/vim-crystallite'
 
 " All of your Plugins must be added before the following line
 call vundle#end()
@@ -42,8 +50,8 @@ call vundle#end()
 syntax on
 filetype plugin indent on   " enable detection, plugins and indent
 
-set guifont=Monospace\ Regular:s10
-set background=dark " Assume a dark background
+"set guifont=Monospace\ Regular\ 9
+"set background=dark " Assume a dark background
 
 " Local dirs (centralize everything)
 set backupdir=~/.vim/tmp,/tmp
@@ -105,15 +113,22 @@ else
 endif
 
 
-
-
 " -----------------------------------------------------------------------------
 " UI
 " -----------------------------------------------------------------------------
 
-set t_Co=256                " 256 colors terminal
+"set t_Co=256                " 256 colors terminal
 
-color Crystallite
+set background=dark
+"colorscheme crystallite
+
+if has('gui_running')
+  colorscheme solarized
+  let g:solarized_termcolors=256
+else
+  colorscheme zenburn
+endif
+
 " default ColorColumn is too distractive
 hi clear ColorColumn
 hi link ColorColumn FoldColumn
@@ -170,10 +185,10 @@ set diffopt+=iwhite         " Ignore whitespace changes.
 
 
 " --- folding---
-set foldmethod=syntax       " manual fold
+set foldmethod=indent       " manual fold
 set foldnestmax=10           " deepest fold is 10 levels
 set nofoldenable            " don't fold by default
-set foldlevel=1
+set foldlevel=99
 
 
 " --- list chars ---
@@ -218,7 +233,7 @@ set nomodeline                  " don't use modeline (security)
 
 set pastetoggle=<leader>p       " paste mode: avoid auto indent, treat chars
                                 "   as literal.
-
+set clipboard=unnamed
 
 
 " -----------------------------------------------------------------------------
@@ -239,7 +254,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list=2
+let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq = 0
 " close/open location list (errors)
@@ -502,6 +517,13 @@ let g:tmuxline_powerline_separators = 1
 
 " vim-tmux-navigator
 let g:tmux_navigator_no_mappings = 1
+
+" SimpylFold
+let g:SimpylFold_docstring_preview=1
+
+" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
 nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
