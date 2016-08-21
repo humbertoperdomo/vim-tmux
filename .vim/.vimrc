@@ -119,27 +119,27 @@ endif
 
 "set t_Co=256                " 256 colors terminal
 
+
+"if has('gui_running')
+  "colorscheme solarized
+  "let g:solarized_termcolors=256
+"else
+  "colorscheme zenburn
+"endif
+
 set background=dark
-"colorscheme crystallite
-
-if has('gui_running')
-  colorscheme solarized
-  let g:solarized_termcolors=256
-else
-  colorscheme zenburn
-endif
-
+colorscheme crystallite
 " default ColorColumn is too distractive
 hi clear ColorColumn
 hi link ColorColumn FoldColumn
 " defaul line number is too distractive
-hi clear LineNr
+"hi clear LineNr
 hi link LineNr Comment
 hi link OverLength Error
 
 
 set cursorline              " Highlight current line
-set mat=2   " how many tenths of a second to blink
+set mat=2                   " how many tenths of a second to blink
 set laststatus=2            " Always show status line
 set number                  " Enable line numbers.
 set numberwidth=5           " width of numbers line (default on gvim is 4)
@@ -171,13 +171,6 @@ if exists('+relativenumber')
   set relativenumber
 endif
 
-" --- command completion ---
-set wildmenu                " Hitting TAB in command mode will
-set wildchar=<TAB>          "   show possible completions.
-set wildmode=list:longest
-set wildignore+=*.DS_STORE,*.db,node_modules/**,*.jpg,*.png,*.gif
-
-
 " --- diff ---
 set diffopt=filler          " Add vertical spaces to keep right
                             "   and left aligned.
@@ -202,8 +195,6 @@ set list
 " --- remove sounds effects ---
 set noerrorbells
 set visualbell
-
-
 
 
 " -----------------------------------------------------------------------------
@@ -263,75 +254,34 @@ noremap <silent><leader>lo :Errors<CR> :lw<CR>
 noremap <silent><leader>ln :lnext<CR>
 noremap <silent><leader>lp :lprev<CR>
 
+" vim-airline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme = 'powerlineish'
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tmuxline#enabled = 0
+let airline#extensions#tmuxline#color_template = 'normal'
 
-" --- autocomplete / supertab / jscomplete ---
-set infercase
-set completeopt=longest,menuone
-set omnifunc=syntaxcomplete#Complete
-set completefunc=syntaxcomplete#Complete
-set complete=.,w,b,u,U,t,i,d
-" see [autocommands] at the end for more autocomplete settings
+" edkolev tmuxline
+let g:tmuxline_powerline_separators = 1
 
-" --- Strip trailing whitespace ---
-function! StripWhitespace ()
-    let save_cursor = getpos(".")
-    let old_query = getreg('/')
-    :%s/\s\+$//e
-    call setpos('.', save_cursor)
-    call setreg('/', old_query)
-endfunction
+" vim-tmux-navigator
+let g:tmux_navigator_no_mappings = 1
 
-" Trailing white space (strip spaces)
-noremap <leader>ss :call StripWhitespace()<CR>
+" SimpylFold
+let g:SimpylFold_docstring_preview=1
 
-" --- toggle indentation mode ---
+" YouCompleteMe
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
-function! ToggleExpandTab()
-    if &et
-        set noet softtabstop=0
-    else
-        execute "set et softtabstop=". &tabstop
-    endif
-endfunction
-
-noremap <silent> <leader>et :call ToggleExpandTab()<CR>
-
-
-" --- Show syntax highlighting groups for word under cursor ---
-" http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nnoremap <leader>sh :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
-
-" faster when opening files with large lines
-set synmaxcol=300
-
-
-" --- convert selected text from markdown to HTML ---
-vnoremap <silent> <leader>md :! mdown<CR>
-
-function! SanitizeMdown()
-    %s/<\/\?p>//
-    %s/<br \?\/\?>/ /
-    %s/<pre><code>/<pre class="brush:js">\r/
-    %s/<\/code><\/pre>/<\/pre>/
-endfunc
-noremap <silent> <leader>mds :call SanitizeMdown()<CR>
-
-
-" --- toggle autocomplete behavior and word delimiters ---
-
-function! KeywordsAll()
-    setl iskeyword=@,48-57,192-255,\@,\$,%,-,_
-endfunc
-
-function! KeywordsBasic()
-    setl iskeyword=@,48-57,192-255
-endfunc
+" Tmux
+nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
+nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
+nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
+nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
+nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 
 " --- visual block move ---
@@ -352,13 +302,9 @@ map <leader>ls :call ListTrans_toggle_format()<CR>
 vmap <leader>ls :call ListTrans_toggle_format('visual')<CR>
 
 
-
 " -----------------------------------------------------------------------------
 " KEY MAPPINGS
 " -----------------------------------------------------------------------------
-
-" mapleader set at the top of the file to avoid conflicts
-
 
 " --- FIX/IMPROVE DEFAULT BEHAVIOR ---
 
@@ -409,18 +355,8 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 " 'fix' search regexp to be compatible with Perl format
-" nmap / /\v
-" vmap / /\v
-
-" Use the damn hjkl keys
-" noremap <up> <nop>
-" noremap <down> <nop>
-" noremap <left> <nop>
-" noremap <right> <nop>
-
-" improve the 'search word under cursor' behavior
-nnoremap * :silent call KeywordsAll()<CR> *
-nnoremap # :silent call KeywordsAll()<CR> #
+nnoremap / /\v
+vnoremap / /\v
 
 
 " --- COMMON STUFF / HELPERS ---
@@ -441,9 +377,6 @@ nnoremap <leader>rf gg=G
 " I use retab too much and it's hard to type
 nnoremap <leader>rt :retab!<CR>
 
-" Pull word under cursor into LHS of a substitute (find and replace)
-nnoremap <leader>rr :silent call KeywordsAll()<CR> :%s#\<<C-r>=expand("<cword>")<CR>\>#
-
 " Insert/append a single character
 " noremap ,, i_<esc>r
 " noremap ;; a_<esc>r
@@ -451,13 +384,8 @@ nnoremap <leader>rr :silent call KeywordsAll()<CR> :%s#\<<C-r>=expand("<cword>")
 " Visually select the text that was last edited/pasted
 nnoremap <leader>v `[v`]
 
-" fast Ack
-nnoremap <leader>a :tab split<CR>:Ack<Space>
-nnoremap <leader>aw :silent call KeywordsAll()<CR> :tab split<CR>:Ack<cword><CR> :silent call KeywordsBasic()<CR>
-
 " Toggle spelling hints
 nnoremap <silent> <leader>ts :set spell!<CR>
-
 
 " Move between splits (windows)
 noremap <C-h> <C-w>h
@@ -483,10 +411,8 @@ map <leader>bp :BB<CR>
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
-
 " add spaces inside current parenthesis
 map <leader>( vi(xi  P
-
 
 " Miscellaneous 
 inoremap <F1> <ESC>
@@ -495,41 +421,9 @@ vnoremap <F1> <ESC>
 au FocusLost * :wa
 vnoremap . :norm.<CR>
 nnoremap Y y$
-
-nnoremap / /\v
-vnoremap / /\v
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
-
-
-" vim-airline
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme = 'powerlineish'
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tmuxline#enabled = 0
-let airline#extensions#tmuxline#color_template = 'normal'
-
-" edkolev tmuxline
-let g:tmuxline_powerline_separators = 1
-
-" vim-tmux-navigator
-let g:tmux_navigator_no_mappings = 1
-
-" SimpylFold
-let g:SimpylFold_docstring_preview=1
-
-" YouCompleteMe
-let g:ycm_autoclose_preview_window_after_completion=1
-map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
-
-nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
-nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
-nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
-nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
-nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 
 " -----------------------------------------------------------------------------
@@ -542,23 +436,11 @@ augroup mm_buf_cmds
     autocmd!
 
     " when vimrc is edited, reload it
-    autocmd bufwritepost .vimrc source %
+    autocmd bufwritepost ~/.vimrc source %
 
     " Only show cursorline in the current window and in normal mode
     au WinLeave,InsertEnter * set nocul
     au WinEnter,InsertLeave * set cul
-
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-    " messing with motions (eg. '.foo-bar__baz') and we make sure all
-    " delimiters (_,-,$,%,.) are treated as word separators outside insert mode
-    autocmd InsertEnter,BufLeave * :silent call KeywordsAll()
-    autocmd InsertLeave,BufEnter * :silent call KeywordsBasic()
-
-    " yes, we need to duplicate it on VimEnter for some weird reason
-    autocmd VimEnter * nnoremap * :silent call KeywordsAll()<CR> *
-    autocmd VimEnter * nnoremap # :silent call KeywordsAll()<CR> #
 
     " highlight char at column 81 (textwidth + 1)
     autocmd BufEnter * match OverLength /\%81v/
