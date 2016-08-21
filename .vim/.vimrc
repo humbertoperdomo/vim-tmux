@@ -39,6 +39,7 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'nvie/vim-flake8'
+Plugin 'airblade/vim-gitgutter'
 
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
@@ -243,6 +244,7 @@ noremap <leader>nt :NERDTreeToggle<CR>
 " --- Syntastic : Linting / Error check ---
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{fugitive#statusline()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list=1
