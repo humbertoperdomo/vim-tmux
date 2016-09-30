@@ -229,6 +229,14 @@ set clipboard=unnamed
 
 
 " -----------------------------------------------------------------------------
+" Menu completion
+" -----------------------------------------------------------------------------
+
+set wildmenu
+"set wildmode=longest list
+
+
+" -----------------------------------------------------------------------------
 " PLUGINS
 " -----------------------------------------------------------------------------
 
@@ -246,10 +254,13 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%{fugitive#statusline()}
 set statusline+=%*
+let g:syntastic_python_checkers=['pylint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_loc_list_height=5
+let g:syntastic_java_javac_config_file_enabled = 1
 " close/open location list (errors)
 noremap <silent><leader>lc :lcl<CR>
 noremap <silent><leader>lo :Errors<CR> :lw<CR>
@@ -277,6 +288,10 @@ let g:SimpylFold_docstring_preview=1
 " YouCompleteMe
 let g:ycm_autoclose_preview_window_after_completion=1
 map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
+
+
+" Fugitive settings
+nmap <silent> <leader>dd :tab split \| Gvdiff <cr>
 
 " Tmux
 nnoremap <silent> {Left-mapping} :TmuxNavigateLeft<cr>
@@ -407,7 +422,8 @@ map <leader>bd :BD<CR>
 
 " smarter next/prev buffer (requires bufkill.vim)
 map <leader>bn :BF<CR>
-map <leader>bp :BB<CR>
+" fixme if this shortcut does not work
+map <leader>nb :BB<CR>
 
 " resize splits (http://vim.wikia.com/wiki/Resize_splits_more_quickly)
 nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
