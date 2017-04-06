@@ -6,3 +6,8 @@ EDITOR='vim'
 
 # Attach tmux session on a remote server
 ssh humberto@192.168.100.4 -t tmux a -t dev
+
+
+# Map CapsLock to Ctrl
+# sudo vim /usr/share/doc/keyboard-configuration/xorg.lst 
+setxkbmap -option "ctrl:nocaps"
