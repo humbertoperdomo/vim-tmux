@@ -11,3 +11,7 @@ ssh humberto@192.168.100.4 -t tmux a -t dev
 # Map CapsLock to Ctrl
 # sudo vim /usr/share/doc/keyboard-configuration/xorg.lst 
 setxkbmap -option "ctrl:nocaps"
+
+# You can use the keyboard to control the mouse pointer
+# using blq num and ctrl
+setxkbmap -option keypad:pointerkeys

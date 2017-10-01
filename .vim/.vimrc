@@ -129,7 +129,7 @@ endif
 "endif
 
 set background=dark
-colorscheme crystallite
+colorscheme Crystallite
 " default ColorColumn is too distractive
 hi clear ColorColumn
 hi link ColorColumn FoldColumn
