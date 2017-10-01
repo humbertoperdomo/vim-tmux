@@ -15,3 +15,19 @@ setxkbmap -option "ctrl:nocaps"
 # You can use the keyboard to control the mouse pointer
 # using blq num and ctrl
 setxkbmap -option keypad:pointerkeys
+
+
+# where to config wifi connection in raspbian
+/etc/wpa_supplicant
+# wpa_supplicant.conf file content
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+country=GB
+
+network={
+	ssid="Sin acceso a internet"
+	psk="32AA0121"
+	key_mgmt=WPA-PSK
+}
+# wpa_supplicant.conf file content end here
+
