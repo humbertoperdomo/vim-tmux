@@ -29,9 +29,9 @@ root: ~/Documents/Repositories/practices
 
 windows:
   - ide:
-      layout: 35c5,193x42,0,0[193x30,0,0,0,193x11,0,31{112x11,0,31,1,80x11,113,31,2}]
+      #layout: 35c5,193x42,0,0[193x30,0,0,0,193x11,0,31{112x11,0,31,1,80x11,113,31,2}]
+      layout: 709d,225x49,0,0[225x33,0,0,0,225x15,0,34,2]
       panes:
         - vim
-        - #empty, will just run plain bash
         - #empty, will just run plain bash
   - shell: 
